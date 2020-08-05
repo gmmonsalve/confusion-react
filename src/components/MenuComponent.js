@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
-import DishDetail from './DishDetailComponent';
+import DishDetail from './DishdetailComponent';
 
 class Menu extends Component {
 

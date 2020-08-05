@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
+import DishDetail from './DishDetailComponent';
 
 class Menu extends Component {
 
@@ -20,18 +21,49 @@ class Menu extends Component {
     renderDish(dish) {
         if (dish != null)
             return(
-                <Card>
-                    <CardImg top src={dish.image} alt={dish.name} />
-                    <CardBody>
-                      <CardTitle>{dish.name}</CardTitle>
-                      <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <DishDetail dish={dish}/>
             );
         else
             return(
                 <div></div>
             );
+    }
+    
+    
+    renderComments(dish){
+        if(dish != null){
+            const months = ['January', 'February', 'March', 
+            'April', 'May', 'June', 
+            'July', 'August', 'September', 
+            'October', 'November', 'December'];
+            dish.comments.map(function date(commit){
+            const dte = new Date(commit.date);
+            commit.date = months[dte.getMonth()]+' '+dte.getDate()+', '+dte.getFullYear();
+        });
+
+        const commts = dish.comments.map((commit)=>{
+                return(
+                    
+                    <ul className="list-unstyled">
+                       
+                        <li>{commit.comment}</li>
+        
+                        <li>-- {commit.author}, {commit.date}</li>
+                    </ul>
+                    );
+                });
+                return(
+                    <div>
+                        <h4>Comments</h4>
+                        {commts}
+                    </div>
+                   
+                    );
+             }else{
+                 return(
+                 <div></div>
+                 );
+             }
     }
 
     render() {
@@ -55,8 +87,12 @@ class Menu extends Component {
                     {menu}
                 </div>
                 <div className="row">
-                  <div  className="col-12 col-md-5 m-1">
+                  <div className="col-12 col-sm-12 col-md-5 m-1">
                     {this.renderDish(this.state.selectedDish)}
+                  </div>
+                  <div className="col-12 col-sm-12 col-md-5 m-1">
+                  
+                    {this.renderComments(this.state.selectedDish)}
                   </div>
                 </div>
             </div>

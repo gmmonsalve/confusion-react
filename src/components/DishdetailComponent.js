@@ -28,20 +28,11 @@ class DishDetail extends Component{
     }
     renderComments(dish){
         if(dish != null){
-            const months = ['January', 'February', 'March', 
-            'April', 'May', 'June', 
-            'July', 'August', 'September', 
-            'October', 'November', 'December'];
-            dish.comments.map(function date(commit){
-            const dte = new Date(commit.date);
-            commit.date = months[dte.getMonth()]+' '+dte.getDate()+', '+dte.getFullYear();
-        });
-
         const commts = dish.comments.map((commit)=>{
                 return(
                     <div>
                         <li>{commit.comment}</li>
-                        <li>-- {commit.author}, {commit.date}</li>
+                        <li>-- {commit.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
                         <br></br>
                     </div>
                         

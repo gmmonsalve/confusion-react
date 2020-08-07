@@ -32,7 +32,7 @@ class DishDetail extends Component{
                 return(
                     <div>
                         <li>{commit.comment}</li>
-                        <li>-- {commit.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
+                        <li>-- {commit.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(commit.date)))}</li>
                         <br></br>
                     </div>
                         

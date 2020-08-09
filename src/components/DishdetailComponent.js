@@ -47,7 +47,8 @@ import { Card, CardImg, CardText, CardBody,
     const  DishDetail = (props) => {
         const SelectedDish = props.dish;
         return(
-                <div className="row">
+                <div className="container">
+                    <div className="row">
                     <div className="col-12 col-sm-12 col-md-5 m-1">
                         <RenderDish dish={SelectedDish}/>
                     </div>
@@ -57,6 +58,7 @@ import { Card, CardImg, CardText, CardBody,
                             <RenderComments comments={SelectedDish}/>
                         </ul>
                     </div>
+                </div>
                 </div>
         );
     }

@@ -1,16 +1,8 @@
-import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle, Media} from 'reactstrap';
-import { render } from '@testing-library/react';
+import React from 'react';
+import { Card, CardImg, CardText, CardBody,
+    CardTitle } from 'reactstrap';
 
-
-
-class DishDetail extends Component{
-    constructor(props) {
-        super(props);
-    }
-
-    renderDish(dish) {
+    function RenderDish({dish})  {
         if (dish != null)
             return(
                 <Card>
@@ -26,9 +18,9 @@ class DishDetail extends Component{
                 <div></div>
             );
     }
-    renderComments(dish){
-        if(dish != null){
-        const commts = dish.comments.map((commit)=>{
+    function RenderComments({comments}) {
+        if(comments){
+        const commts = comments.comments.map((commit)=>{
                 return(
                     <div>
                         <li>{commit.comment}</li>
@@ -51,22 +43,22 @@ class DishDetail extends Component{
                  );
              }
     }
-    render(){
-        const SelectedDish = this.props.dish;
+
+    const  DishDetail = (props) => {
+        const SelectedDish = props.dish;
         return(
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-5 m-1">
-                        {this.renderDish(SelectedDish)}
+                        <RenderDish dish={SelectedDish}/>
                     </div>
                     <div className="col-12 col-sm-12 col-md-5 m-1">
                         
                         <ul className="list-unstyled">
-                            {this.renderComments(SelectedDish)}
+                            <RenderComments comments={SelectedDish}/>
                         </ul>
                     </div>
                 </div>
         );
     }
-}
 
 export default DishDetail;

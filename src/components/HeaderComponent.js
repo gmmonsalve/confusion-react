@@ -22,7 +22,7 @@ class Header extends Component {
       }
       toggleModal() {
         this.setState({
-          isModalOpen: !this.state.isNavOpen
+          isModalOpen: !this.state.isModalOpen
         });
       }
 

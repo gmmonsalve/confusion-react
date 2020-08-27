@@ -4,6 +4,9 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len)
+const minLength = (len) => (val) => (val) && (val.length >= len)
 
 class CommentForm extends Component{
     constructor(props){
@@ -13,8 +16,24 @@ class CommentForm extends Component{
             isModalOpen: false
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+    handleSubmit(values) {
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
+        // event.preventDefault();
+    }
+    validate(author){
+        const errors = {
+            author: ''
+        };
+        if (this.state.touched.author && author.length < 3)
+            errors.author = 'Your name should be >= 3 characters';
+        else if (this.state.touched.author && author.length > 15)
+            errors.author = 'Last Name should be <= 10 characters';
 
+        return errors;
+    }
     render(){
         return(
             <div>
@@ -26,12 +45,13 @@ class CommentForm extends Component{
                     Submit Comment
                 </ModalHeader>
                 <ModalBody>
-                <LocalForm>
+                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                     <div className="container">
                     <Row className="form-group">
                     <Col md={12}>
                             <Label htmlFor="rate">Rating</Label>
-                            <Control.select model=".rate" className="form-control" name="rate">
+                            <Control.select model=".rating" className="form-control" name="rate"
+                            >
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -45,11 +65,24 @@ class CommentForm extends Component{
                             <Label htmlFor="name">
                             Your name
                             </Label>
-                            <Control.text model=".name" name="name" 
+                            <Control.text model=".author" name="name" 
                             placeholder="Your name" 
                             type="text" 
                             className="form-control"
-                            style={{width: "100%"}}/>
+                            style={{width: "100%"}}
+                            validators={{
+                                required, minLength: minLength(3), maxLength: maxLength(15)
+                            }}
+                            />
+                            <Errors
+                                        className="text-danger"
+                                        model=".author"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be at least 3 characters',
+                                            maxLength: 'Must be equals or less than 15 characters'
+                                        }} />
                         </Col>
                     </Row>
                     <Row className="form-group">
@@ -59,15 +92,19 @@ class CommentForm extends Component{
                             </Label>
                             <Control.textarea model=".comment" 
                             name="comment" 
-                            type="textarea" rows="5"
-                            className="form-control" />
+                            type="textarea" rows="6"
+                            className="form-control"
+                            validators={{
+                                required
+                            }}
+                            />
                         </Col>
                     </Row>
                     <Row className="form-group">
                         <Col md={12}>
-                            <Control.button model=".submit" type="button" className="btn btn-primary">
+                            <Button color="primary" model=".submit" type="button" type="submit">
                                 Submit
-                            </Control.button>
+                            </Button>
                         </Col>   
                     </Row>
                     </div>

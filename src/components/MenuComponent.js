@@ -4,7 +4,7 @@ import { Card, CardImg, CardImgOverlay,
 import { Link } from 'react-router-dom';
 
 
-    function RenderMenuItem ({dish, onClick}) {
+function RenderMenuItem ({dish, onClick}) {
         
         return (
             <Card>

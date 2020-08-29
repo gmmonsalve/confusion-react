@@ -23,17 +23,7 @@ class CommentForm extends Component{
         alert('Current State is: ' + JSON.stringify(values));
         // event.preventDefault();
     }
-    validate(author){
-        const errors = {
-            author: ''
-        };
-        if (this.state.touched.author && author.length < 3)
-            errors.author = 'Your name should be >= 3 characters';
-        else if (this.state.touched.author && author.length > 15)
-            errors.author = 'Last Name should be <= 10 characters';
-
-        return errors;
-    }
+    
     render(){
         return(
             <div>
